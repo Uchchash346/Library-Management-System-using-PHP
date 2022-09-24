@@ -39,13 +39,32 @@ if (isset($_POST['student_register'])) {
     }
 
     if (count($input_errors) == 0) {
-        $password_hash = password_hash($password, PASSWORD_DEFAULT); // Hashing Password
-
-        $result = mysqli_query($con, "INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`, `phone`, `Status`) VALUES ('$fname','$lname','$roll','$reg','$email','$username','$password_hash','$phone', '0')");
-        if ($result) {
-            $success = "Registration Successfully completed!";
+        $email_check = mysqli_query($con, "SELECT * FROM `students` WHERE `email` = '$email'");
+        $email_check_row = mysqli_num_rows($email_check);
+        if ($email_check_row == 0) {
+            $username_check = mysqli_query($con, "SELECT * FROM `students` WHERE `username` = '$username'");
+            $username_check_row = mysqli_num_rows($username_check);
+            if ($username_check_row == 0) {
+                if (strlen($username) > 7) {
+                    if (strlen($password) >= 6) {
+                        $password_hash = password_hash($password, PASSWORD_DEFAULT); // Hashing Password
+                        $result = mysqli_query($con, "INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`, `phone`, `Status`) VALUES ('$fname','$lname','$roll','$reg','$email','$username','$password_hash','$phone', '0')");
+                        if ($result) {
+                            $success = "Registration Successfully completed!";
+                        } else {
+                            $error = "Something Wrong";
+                        }
+                    } else {
+                        $password_error = "Password more than 8 characters";
+                    }
+                } else {
+                    $username_exists = "Username more than 8 characters";
+                }
+            } else {
+                $username_exists = "This username already existed";
+            }
         } else {
-            $error = "Something Wrong";
+            $email_exists = "This email already existed";
         }
     }
 }
@@ -92,6 +111,54 @@ if (isset($_POST['student_register'])) {
                 <?php
                 }
                 ?>
+                <?php
+                if (isset($error)) {
+                ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $error ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if (isset($email_exists)) {
+                ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $email_exists ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if (isset($username_exists)) {
+                ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $username_exists ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                }
+                ?>
+                <?php
+                if (isset($password_error)) {
+                ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $password_error ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="box">
                 <!--SIGN IN FORM-->
@@ -100,7 +167,7 @@ if (isset($_POST['student_register'])) {
                         <form method="post" action="<?= $_SERVER['PHP_SELF'] ?>">
                             <div class="form-group mt-md">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" id="name" placeholder="First Name" name="fname">
+                                    <input type="text" class="form-control" id="name" placeholder="First Name" name="fname" value="<?= isset($fname) ? $fname : '' ?>">
                                     <i class="fa fa-user"></i>
                                 </span>
                                 <?php
@@ -111,7 +178,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group mt-md">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" id="name" placeholder="Last Name" name="lname">
+                                    <input type="text" class="form-control" id="name" placeholder="Last Name" name="lname" value="<?= isset($lname) ? $lname : '' ?>">
                                     <i class="fa fa-user"></i>
                                 </span>
                                 <?php
@@ -122,7 +189,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group mt-md">
                                 <span class="input-with-icon">
-                                    <input type="email" class="form-control" id="email" placeholder="Email" name="email">
+                                    <input type="email" class="form-control" id="email" placeholder="Email" name="email" value="<?= isset($email) ? $email : '' ?>">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <?php
@@ -133,7 +200,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group mt-md">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" id="email" placeholder="Username" name="username">
+                                    <input type="text" class="form-control" id="email" placeholder="Username" name="username" value="<?= isset($username) ? $username : '' ?>">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <?php
@@ -155,7 +222,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" placeholder="Roll" name="roll" pattern="[0-9]{6}">
+                                    <input type="text" class="form-control" placeholder="Roll" name="roll" pattern="[0-9]{6}" value="<?= isset($roll) ? $roll : '' ?>">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <?php
@@ -166,7 +233,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" placeholder="Reg. No" name="reg" pattern="[0-9]{6}">
+                                    <input type="text" class="form-control" placeholder="Reg. No" name="reg" pattern="[0-9]{6}" value="<?= isset($reg) ? $reg : '' ?>">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <?php
@@ -177,7 +244,7 @@ if (isset($_POST['student_register'])) {
                             </div>
                             <div class="form-group">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" placeholder="01*******" name="phone" pattern="01[1|5|6|7|8|9][0-9]{8}">
+                                    <input type="text" class="form-control" placeholder="01*******" name="phone" pattern="01[1|5|6|7|8|9][0-9]{8}" value="<?= isset($phone) ? $phone : '' ?>">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                                 <?php
