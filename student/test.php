@@ -1,6 +1,4 @@
-<?php
-require_once 'header.php';
-?>
+<?php require_once 'header.php'; ?>
 <!-- content HEADER -->
 <!-- ========================================================= -->
 <div class="content-header">
@@ -8,6 +6,7 @@ require_once 'header.php';
     <div class="leftside-content-header">
         <ul class="breadcrumbs">
             <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Dashboard</a></li>
+            <li><a href="#">Test</a></li>
         </ul>
     </div>
 </div>
@@ -17,7 +16,4 @@ require_once 'header.php';
         test
     </div>
 </div>
-
-<?php
-require_once 'footer.php';
-?>
+<?php require_once 'footer.php'; ?>
