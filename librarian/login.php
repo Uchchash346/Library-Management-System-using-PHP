@@ -1,6 +1,10 @@
 <?php
 // Import Database Connection
 require_once '../dbcon.php';
+session_start();
+if(isset($_SESSION['librarian_login'])){
+    header('location: index.php');
+}
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -10,6 +14,7 @@ if (isset($_POST['login'])) {
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
         if ($row['password'] == $password ) {
+            $_SESSION['librarian_login'] = $email;
             header('location: index.php');
         } else {
             $error = "Invalid Password";

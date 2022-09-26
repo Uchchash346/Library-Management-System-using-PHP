@@ -1,6 +1,10 @@
 <?php
-
 require_once '../dbcon.php';
+
+session_start();
+if (isset($_SESSION['student_login'])) {
+    header('location: index.php');
+}
 
 if (isset($_POST['student_register'])) {
     $fname = $_POST['fname'];
@@ -18,7 +22,7 @@ if (isset($_POST['student_register'])) {
     }
     if (empty($lname)) {
         $input_errors['lname'] = "Last Name field is required!";
-    }
+    } 
     if (empty($email)) {
         $input_errors['email'] = "Email field is required!";
     }
