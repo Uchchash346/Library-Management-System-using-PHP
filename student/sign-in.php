@@ -1,18 +1,3 @@
-<?php
-require_once '../dbcon.php';
-
-if (isset($_POST['login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    $result = mysqli_query($con, "SELECT * FROM `students` WHERE `email` = '$email' OR `username` = '$email';");
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-    } else {
-        $error = "Email or Username invalid";
-    }
-}
-?> 
 <!doctype html>
 <html lang="en" class="fixed accounts sign-in">
 
@@ -41,33 +26,21 @@ if (isset($_POST['login'])) {
             <!--LOGO-->
             <div class="logo">
                 <h1 class="text-center">LMS</h1>
-                <?php
-                if (isset($error)) {
-                ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= $error ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php
-                }
-                ?>
             </div>
             <div class="box">
                 <!--SIGN IN FORM-->
                 <div class="panel mb-none">
                     <div class="panel-content bg-scale-0">
-                        <form class="post" action="<?= $_SERVER['PHP_SELF'] ?>">
+                        <form>
                             <div class="form-group mt-md">
                                 <span class="input-with-icon">
-                                    <input type="text" class="form-control" name="email" id="email" placeholder="Email or Username" value="<?= isset($email) ? $email : '' ?>">
+                                    <input type="email" class="form-control" id="email" placeholder="Email">
                                     <i class="fa fa-envelope"></i>
                                 </span>
                             </div>
                             <div class="form-group">
                                 <span class="input-with-icon">
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
                                     <i class="fa fa-key"></i>
                                 </span>
                             </div>
@@ -78,13 +51,13 @@ if (isset($_POST['login'])) {
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Sign in" class="btn btn-primary btn-block" name="login">
+                                <a href="index.html" class="btn btn-primary btn-block">Sign in</a>
                             </div>
                             <div class="form-group text-center">
                                 <a href="pages_forgot-password.html">Forgot password?</a>
                                 <hr />
                                 <span>Don't have an account?</span>
-                                <a href="register.php" class="btn btn-block mt-sm">Register</a>
+                                <a href="pages_register.html" class="btn btn-block mt-sm">Register</a>
                             </div>
                         </form>
                     </div>
