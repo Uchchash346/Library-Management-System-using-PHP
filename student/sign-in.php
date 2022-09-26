@@ -1,6 +1,11 @@
 <?php
 // Import Database Connection
 require_once '../dbcon.php';
+session_start();
+if(isset($_SESSION['student_login'])){
+    header('location: index.php');
+}
+
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
@@ -9,14 +14,15 @@ if (isset($_POST['login'])) {
     $result = mysqli_query($con, "SELECT * FROM `students` WHERE `email` = '$email' OR `username` = '$email';");
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if(password_verify($password, $row['password'])){
-            if($row['Status'] == 1){
-                echo "Yes";
-            } else{
-                $error = "Your Status Inactive";            
+        if (password_verify($password, $row['password'])) {
+            if ($row['Status'] == 1) {
+                $_SESSION['student_login'] = $email;
+                header('location: index.php');
+            } else {
+                $error = "Your Status Inactive";
             }
-        } else{
-            $error = "Invalid Password";            
+        } else {
+            $error = "Invalid Password";
         }
     } else {
         $error = "Invalid Email or Username";
