@@ -51,11 +51,11 @@ require_once 'header.php';
                                         <?php
                                         if ($row['Status'] == 1) {
                                         ?>
-                                            <a href="" class="btn btn-warning"><i class="fa fa-arrow-up"></i></a>
+                                            <a href="status_inactive.php?id=<?= base64_encode($row['id']) ?>" class="btn btn-primary"><i class="fa fa-arrow-up"></i></a>
                                         <?php
                                         } else {
                                         ?>
-                                            <a href="" class="btn btn-primary"><i class="fa fa-arrow-down"></i></a>
+                                            <a href="status_active.php?id=<?= base64_encode($row['id']) ?>" class="btn btn-warning"><i class="fa fa-arrow-down"></i></a>
                                         <?php
                                         }
                                         ?>
