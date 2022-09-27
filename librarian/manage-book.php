@@ -47,7 +47,11 @@ require_once 'header.php';
                                     <td><?= $row['book_price'] ?></td>
                                     <td><?= $row['book_qty'] ?></td>
                                     <td><?= $row['available_qty'] ?></td>
-                                    <td>1</td>
+                                    <td>
+                                        <a href="" class="btn btn-info" data-toggle="modal" data-target="#book-<?= $row['id'] ?>"><i class="fa fa-eye"></i></a>
+                                        <a href="" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             <?php
 
@@ -62,5 +66,27 @@ require_once 'header.php';
 </div>
 
 <?php
-require_once 'footer.php';
+$result = mysqli_query($con, "SELECT * FROM `books`");
+while ($row = mysqli_fetch_assoc($result)) {
 ?>
+    <!-- Modal -->
+    <div class="modal fade" id="book-<?= $row['id'] ?>" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="modal-info-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-info-label"><i class="fa fa-info"></i>Info Modal</h4>
+                </div>
+                <div class="modal-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga, magni suscipit. Dicta dolorem earum esse, fugiat harum minus neque nesciunt, quas reiciendis rem repudiandae rerum? Adipisci et labore laborum quidem!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    <?php
+}
+    ?>
+    <?php require_once 'footer.php'; ?>
