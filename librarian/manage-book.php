@@ -50,7 +50,7 @@ require_once 'header.php';
                                     <td>
                                         <a href="javascript:avoid(0)" class="btn btn-info" data-toggle="modal" data-target="#book-<?php $row['id'] ?>"><i class="fa fa-eye"></i></a>
                                         <a href="" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="delete.php?bookdelete=<?= base64_encode($row['id']) ?>" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             <?php
