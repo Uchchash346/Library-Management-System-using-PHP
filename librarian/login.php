@@ -2,7 +2,7 @@
 // Import Database Connection
 require_once '../dbcon.php';
 session_start();
-if(isset($_SESSION['librarian_login'])){
+if (isset($_SESSION['librarian_login'])) {
     header('location: index.php');
 }
 
@@ -13,8 +13,9 @@ if (isset($_POST['login'])) {
     $result = mysqli_query($con, "SELECT * FROM `librarian` WHERE `email` = '$email' OR `username` = '$email';");
     if (mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if ($row['password'] == $password ) {
+        if ($row['password'] == $password) {
             $_SESSION['librarian_login'] = $email;
+            $_SESSION['librarian_username'] = $row['username'];
             header('location: index.php');
         } else {
             $error = "Invalid Password";
