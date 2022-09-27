@@ -40,7 +40,7 @@ require_once 'header.php';
                             ?>
                                 <tr>
                                     <td><?= $row['book_name'] ?></td>
-                                    <td><img style="width: 50px;" src="../images/books/<?= $row['book_image'] ?>" alt=""></td>
+                                    <td><img style="width: 50px;height: 50px;" src="../images/books/<?= $row['book_image'] ?>" alt=""></td>
                                     <td><?= $row['book_author_name'] ?></td>
                                     <td><?= $row['book_publication_name'] ?></td>
                                     <td><?= date('d-M-Y', strtotime($row['book_purchase_date'])) ?></td>
@@ -54,7 +54,6 @@ require_once 'header.php';
                                     </td>
                                 </tr>
                             <?php
-
                             }
                             ?>
                         </tbody>
@@ -64,7 +63,6 @@ require_once 'header.php';
         </div>
     </div>
 </div>
-
 <?php
 $result = mysqli_query($con, "SELECT * FROM `books`");
 while ($row = mysqli_fetch_assoc($result)) {
@@ -85,7 +83,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         </tr>
                         <tr>
                             <th>Book Image</th>
-                            <td><img style="width: 40px; height: 40px;" src="../images/books/<?= $row['book_image'] ?>" alt="ggg"></td>
+                            <td><img style="width: 40px; height: 40px;" src="../images/books/<?= $row['book_image'] ?>" alt=""></td>
                         </tr>
                         <tr>
                             <th>Author Name</th>
