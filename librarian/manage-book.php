@@ -49,7 +49,7 @@ require_once 'header.php';
                                     <td><?= $row['available_qty'] ?></td>
                                     <td>
                                         <a href="javascript:avoid(0)" class="btn btn-info" data-toggle="modal" data-target="#book-<?php $row['id'] ?>"><i class="fa fa-eye"></i></a>
-                                        <a href="" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                        <a href="javascript:avoid(0)" class="btn btn-warning" data-toggle="modal" data-target="#book-update-<?php $row['id'] ?>"><i class="fa fa-pencil"></i></a>
                                         <a href="delete.php?bookdelete=<?= base64_encode($row['id']) ?>" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
@@ -69,6 +69,66 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
     <!-- Modal -->
     <div class="modal fade" id="book-<?php $row['id'] ?>" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="modal-info-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header state modal-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-info-label"><i class="fa fa-book"></i>Book Info</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Book Name</th>
+                            <td><?= $row['book_name'] ?></td>
+                        </tr>
+                        <!-- <tr>
+                            <th>Book Image</th>
+                            <td><img style="width: 40px; height: 40px;" src="../images/books/<?= $row['book_image'] ?>" alt=""></td>
+                        </tr> -->
+                        <tr>
+                            <th>Author Name</th>
+                            <td><?= $row['book_author_name'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Publication Name</th>
+                            <td><?= $row['book_publication_name'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Purchase Date</th>
+                            <td><?= date('d-M-Y', strtotime($row['book_purchase_date'])) ?></td>
+                        </tr>
+                        <tr>
+                            <th>Book Price</th>
+                            <td><?= $row['book_price'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Book Quantity</th>
+                            <td><?= $row['book_qty'] ?></td>
+                        </tr>
+                        <tr>
+                            <th>Available Quantity</th>
+                            <td><?= $row['available_qty'] ?></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    <?php
+}
+    ?>
+</div>
+
+<!-- Book Update -->
+
+<?php
+$result = mysqli_query($con, "SELECT * FROM `books`");
+while ($row = mysqli_fetch_assoc($result)) {
+?>
+    <!-- Modal -->
+    <div class="modal fade" id="book-update-<?php $row['id'] ?>" id="info-modal" tabindex="-1" role="dialog" aria-labelledby="modal-info-label">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header state modal-info">
