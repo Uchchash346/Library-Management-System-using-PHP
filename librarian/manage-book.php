@@ -150,11 +150,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                             <div class="form-group">
                                                 <label for="book_name">Book Name</label>
                                                 <input type="text" class="form-control" id="book_name" name="book_name" placeholder="Book Name" value="<?= $book_info_row['book_name'] ?>" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="book_image">Book Image</label>
-                                                <input type="file" id="book_image" name="book_image" required>
-                                                <img style="width: 70px; height: 70px;" src="../images/books/<?= $book_info_row['book_image'] ?>" alt="">
+                                                <input type="hidden" class="form-control" name="id" value="<?= $book_info_row['id'] ?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="book_author_name">Author Name</label>
@@ -181,7 +177,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                                 <input type="number" class="form-control" id="available_qty" name="available_qty" placeholder="Available Quantity" value="<?= $book_info_row['available_qty'] ?>" required>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save "></i> Update</button>
+                                                <button type="submit" name="update_book" class="btn btn-primary"><i class="fa fa-save "></i> Update</button>
                                             </div>
                                         </form>
                                     </div>
@@ -193,8 +189,24 @@ while ($row = mysqli_fetch_assoc($result)) {
             </div>
         <?php
     }
+
+    if (isset($_POST['update_book'])) {
+        $id = $_POST['id'];
+        $book_name = $_POST['book_name'];
+        $book_author_name = $_POST['book_author_name'];
+        $book_publication_name = $_POST['book_publication_name'];
+        $book_purchase_date = $_POST['book_purchase_date'];
+        $book_price = $_POST['book_price'];
+        $book_qty = $_POST['book_qty'];
+        $available_qty = $_POST['available_qty'];
+        // $librarian_username = $_SESSION['librarian_username'];
+
+        $result = mysqli_query($con, "UPDATE `books` SET `book_name`='$book_name',`book_author_name`='$book_author_name',`book_publication_name`='$book_publication_name',`book_purchase_date`='$book_purchase_date',`book_price`='$book_price',`book_qty`='$book_qty',`available_qty`='$available_qty' WHERE `id` = '$id'");
+        if ($result) {
+            header('location: manage-book.php');
+        }
+    }
         ?>
-        </div>
 
 
         <?php require_once 'footer.php'; ?>
