@@ -154,7 +154,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                                             <div class="form-group">
                                                 <label for="book_image">Book Image</label>
                                                 <input type="file" id="book_image" name="book_image" required>
-                                                <img style="width: 40px; height: 40px;" src="../images/books/<?= $book_info_row['book_image'] ?>" alt="">
+                                                <img style="width: 70px; height: 70px;" src="../images/books/<?= $book_info_row['book_image'] ?>" alt="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="book_author_name">Author Name</label>
