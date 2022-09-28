@@ -1,5 +1,10 @@
 <?php
 require_once 'header.php';
+if (isset($_POST['issue-book'])) {
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
+}
 ?>
 <!-- content HEADER -->
 <!-- ========================================================= -->
@@ -25,9 +30,9 @@ require_once 'header.php';
                                 <select class="form-control" name="student_id">
                                     <option value="">Select</option>
                                     <?php
-                                    $result = mysqli_query($con, "SELECT * FROM `students`");
+                                    $result = mysqli_query($con, "SELECT * FROM `students` WHERE `status` = '1'");
                                     while ($row = mysqli_fetch_assoc($result)) { ?>
-                                        <option value=""><?= ucwords($row['fname'] . ' ' . $row['lname']) . '-(' . $row['roll'] . ')' ?></option>
+                                        <option value="<?= $row['id'] ?>"><?= ucwords($row['fname'] . ' ' . $row['lname']) . '-(' . $row['roll'] . ')' ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
@@ -36,8 +41,49 @@ require_once 'header.php';
                             </div>
                         </form>
                     </div>
-                    
                 </div>
+                <?php
+                if (isset($_POST['search'])) {
+                    $id =  $_POST['student_id'];
+                    $result = mysqli_query($con, "SELECT * FROM `students` WHERE `id` = '$id' AND `status` = '1'");
+                    $row = mysqli_fetch_assoc($result);
+                ?>
+                    <div class="panel">
+                        <div class="panel-content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form method="POST" action="">
+                                        <div class="form-group">
+                                            <label for="email">Student Name</label>
+                                            <input type="text" class="form-control" id="name" value="<?= ucwords($row['fname'] . ' ' . $row['lname']) ?>">
+                                            <input type="hidden" value="<?= $row['id'] ?>" name="student_id">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Book Name</label>
+                                            <select class="form-control" name="book_id">
+                                                <option value="">Select</option>
+                                                <?php
+                                                $result = mysqli_query($con, "SELECT * FROM `books` WHERE `available_qty` > 0");
+                                                while ($row = mysqli_fetch_assoc($result)) { ?>
+                                                    <option value="<?= $row['id'] ?>"><?= $row['book_name'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Book Issue Date</label>
+                                            <input class="form-control" name="book_issue_date" type="text" value="<?= date('d-m-Y') ?>" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary" name="issue-book">Save Issue Book</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
