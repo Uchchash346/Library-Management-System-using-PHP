@@ -2,7 +2,7 @@
 // Import Database Connection
 require_once '../dbcon.php';
 session_start();
-if(isset($_SESSION['student_login'])){
+if (isset($_SESSION['student_login'])) {
     header('location: index.php');
 }
 
@@ -17,6 +17,7 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $row['password'])) {
             if ($row['Status'] == 1) {
                 $_SESSION['student_login'] = $email;
+                $_SESSION['student_id'] = $row['id'];
                 header('location: index.php');
             } else {
                 $error = "Your Status Inactive";

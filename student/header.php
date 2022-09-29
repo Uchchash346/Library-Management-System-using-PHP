@@ -3,6 +3,8 @@
 $page = explode('/', $_SERVER['PHP_SELF']);
 $page = end($page);
 
+require_once '../dbcon.php';
+
 session_start();
 if (!isset($_SESSION['student_login'])) {
     header('location: sign-in.php');
@@ -34,6 +36,8 @@ if (!isset($_SESSION['student_login'])) {
     <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
     <!--Magnific popup-->
     <link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css">
+    <!--dataTable-->
+    <link rel="stylesheet" href="../assets/vendor/data-table/media/css/dataTables.bootstrap.min.css">
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="../assets/stylesheets/css/style.css">

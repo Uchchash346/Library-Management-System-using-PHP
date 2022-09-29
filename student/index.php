@@ -14,7 +14,40 @@ require_once 'header.php';
 <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 <div class="row animated fadeInUp">
     <div class="col-sm-12">
-        test
+        <h4 class="section-subtitle"><b>All Issue Books</b></h4>
+        <div class="panel">
+            <div class="panel-content">
+                <div class="table-responsive">
+                    <table id="basic-table" class="table-bordered data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Book Name</th>
+                                <th>Book Image</th>
+                                <th>Book Issue Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            print_r($_SESSION);
+                            $student_id = $_SESSION['student_id'];
+                            $result = mysqli_query($con, "SELECT `issue_books`.`book_issue_date`, `books`.`book_name`, `books`.`book_image` 
+                            FROM `books` 
+                            INNER JOIN `issue_books` ON `issue_books`.`book_id` = `books`.`id` 
+                            WHERE `issue_books`.`student_id` = '$student_id'");
+                            while ($row = mysqli_fetch_assoc($result)) { ?>
+                                <tr>
+                                    <td><?= $row['book_name'] ?></td>
+                                    <td><img style="width: 40px; height: 40px;" src="../images/books/<?= $row['book_image'] ?>" alt=""></td>
+                                    <td><?= date('d-M-Y', strtotime($row['book_issue_date'])) ?></td>
+                                </tr>
+                            <?php
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
