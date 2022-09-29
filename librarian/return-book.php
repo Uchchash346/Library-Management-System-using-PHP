@@ -32,7 +32,7 @@ require_once 'header.php';
                         </thead>
                         <tbody>
                             <?php
-                            $result = mysqli_query($con, "SELECT `issue_books`.`id`,`issue_books`.`book_issue_date`, `students`.`fname`,`students`.`lname`,`students`.`roll`,`students`.`phone`,`books`.`book_name`,`books`.`book_image`
+                            $result = mysqli_query($con, "SELECT `issue_books`.`id`,`issue_books`.`book_id`,`issue_books`.`book_issue_date`, `students`.`fname`,`students`.`lname`,`students`.`roll`,`students`.`phone`,`books`.`book_name`,`books`.`book_image`
                             FROM `issue_books`
                             INNER JOIN `students` ON `students`.`id` = `issue_books`.`student_id`
                             INNER JOIN `books` ON `books`.`id` = `issue_books`.`book_id`
@@ -45,7 +45,7 @@ require_once 'header.php';
                                     <td><?= $row['phone'] ?></td>
                                     <td><?= $row['book_name'] ?></td>
                                     <td><?= $row['book_issue_date'] ?></td>
-                                    <td><a href="return-book.php?id=<?= $row['id'] ?>">Return Book</a></td>
+                                    <td><a href="return-book.php?id=<?= $row['id'] ?>&bookid=<?= $row['book_id'] ?>">Return Book</a></td>
                                 </tr>
                             <?php
 
@@ -62,13 +62,15 @@ require_once 'header.php';
 <?php
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    $bookid = $_GET['bookid'];
     $date = date('d-m-y');
-    $result = mysqli_query($con, "UPDATE `issue_books` SET `book_return_date`='$date' WHERE `id` = ' $id'");
+    $result = mysqli_query($con, "UPDATE `issue_books` SET `book_return_date`='$date' WHERE `id` = '$id';");
     if ($result) {
+        mysqli_query($con, "UPDATE `books` SET `available_qty`=`available_qty`+1 WHERE `id` = '$bookid'");
 ?>
         <script type="text/javascript">
             alert('Book Return Successfully');
-            javascript: history.go(-1);
+            javascript:history.go(-1);
         </script>
     <?php
     } else {

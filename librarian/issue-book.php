@@ -7,7 +7,9 @@ if (isset($_POST['issue-book'])) {
 
     $result = mysqli_query($con, "INSERT INTO `issue_books`(`student_id`, `book_id`, `book_issue_date`) VALUES ('$student_id','$book_id','$book_issue_date')");
 
+
     if ($result) {
+        mysqli_query($con, "UPDATE `books` SET `available_qty`=`available_qty`-1 WHERE `id` = '$book_id'");
 ?>
         <script type="text/javascript">
             alert('Book issued successfully!');
