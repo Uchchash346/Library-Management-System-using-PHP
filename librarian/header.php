@@ -12,6 +12,9 @@ if (!isset($_SESSION['librarian_login'])) {
     header('location: login.php');
 }
 
+$librarian_login = $_SESSION['librarian_login'];
+$data = mysqli_query($con, "SELECT * FROM `librarian` WHERE `email` = '$librarian_login'");
+$librarian_info = mysqli_fetch_assoc($data);
 
 ?>
 
@@ -144,7 +147,7 @@ if (!isset($_SESSION['librarian_login'])) {
                             <img alt="profile photo" src="../assets/images/avatar/avatar_user.jpg" />
                         </div>
                         <div class="user-info">
-                            <span class="user-name">Jane Doe</span>
+                            <span class="user-name"><?= ucwords($librarian_info['firstname']) . ' ' . ucwords($librarian_info['lastname']) ?></span>
                             <span class="user-profile">Admin</span>
                         </div>
                         <i class="fa fa-plus icon-open" aria-hidden="true"></i>
