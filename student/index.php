@@ -28,7 +28,6 @@ require_once 'header.php';
                         </thead>
                         <tbody>
                             <?php
-                            print_r($_SESSION);
                             $student_id = $_SESSION['student_id'];
                             $result = mysqli_query($con, "SELECT `issue_books`.`book_issue_date`, `books`.`book_name`, `books`.`book_image` 
                             FROM `books` 
