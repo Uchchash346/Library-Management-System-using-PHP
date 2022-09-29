@@ -193,6 +193,7 @@ if (!isset($_SESSION['librarian_login'])) {
                                     </ul>
                                 </li>
                                 <li class="<?= $page == 'issue-book.php' ? 'active-item' : '' ?>"><a href="issue-book.php"><i class="fa fa-book" aria-hidden="true"></i><span>Issue Book</span></a></li>
+                                <li class="<?= $page == 'return-book.php' ? 'active-item' : '' ?>"><a href="return-book.php"><i class="fa fa-book" aria-hidden="true"></i><span>Return Book</span></a></li>
                             </ul>
                         </nav>
                     </div>
