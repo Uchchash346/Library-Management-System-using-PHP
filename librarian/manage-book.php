@@ -208,6 +208,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             ?>
                 <script type="text/javascript">
                     alert('Book updated successfully!');
+                    javascript: history.go(-1);
                 </script>
             <?php
             } else {
