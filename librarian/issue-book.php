@@ -1,9 +1,25 @@
 <?php
 require_once 'header.php';
 if (isset($_POST['issue-book'])) {
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
+    $student_id = $_POST['student_id'];
+    $book_id = $_POST['book_id'];
+    $book_issue_date = $_POST['book_issue_date'];
+
+    $result = mysqli_query($con, "INSERT INTO `issue_books`(`student_id`, `book_id`, `book_issue_date`) VALUES ('$student_id','$book_id','$book_issue_date')");
+
+    if ($result) {
+?>
+        <script type="text/javascript">
+            alert('Book issued successfully!');
+        </script>
+    <?php
+    } else {
+    ?>
+        <script type="text/javascript">
+            alert('Book issued failed');
+        </script>
+<?php
+    }
 }
 ?>
 <!-- content HEADER -->

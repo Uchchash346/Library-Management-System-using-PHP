@@ -64,6 +64,8 @@ require_once 'header.php';
     </div>
 </div>
 
+<!-- Add Book -->
+
 <?php
 $result = mysqli_query($con, "SELECT * FROM `books`");
 while ($row = mysqli_fetch_assoc($result)) {
@@ -187,25 +189,35 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </div>
             </div>
-        <?php
-    }
-
-    if (isset($_POST['update_book'])) {
-        $id = $_POST['id'];
-        $book_name = $_POST['book_name'];
-        $book_author_name = $_POST['book_author_name'];
-        $book_publication_name = $_POST['book_publication_name'];
-        $book_purchase_date = $_POST['book_purchase_date'];
-        $book_price = $_POST['book_price'];
-        $book_qty = $_POST['book_qty'];
-        $available_qty = $_POST['available_qty'];
-        // $librarian_username = $_SESSION['librarian_username'];
-
-        $result = mysqli_query($con, "UPDATE `books` SET `book_name`='$book_name',`book_author_name`='$book_author_name',`book_publication_name`='$book_publication_name',`book_purchase_date`='$book_purchase_date',`book_price`='$book_price',`book_qty`='$book_qty',`available_qty`='$available_qty' WHERE `id` = '$id'");
-        if ($result) {
-            header('location: manage-book.php');
+            <?php
         }
-    }
+
+        if (isset($_POST['update_book'])) {
+            $id = $_POST['id'];
+            $book_name = $_POST['book_name'];
+            $book_author_name = $_POST['book_author_name'];
+            $book_publication_name = $_POST['book_publication_name'];
+            $book_purchase_date = $_POST['book_purchase_date'];
+            $book_price = $_POST['book_price'];
+            $book_qty = $_POST['book_qty'];
+            $available_qty = $_POST['available_qty'];
+            // $librarian_username = $_SESSION['librarian_username'];
+
+            $result = mysqli_query($con, "UPDATE `books` SET `book_name`='$book_name',`book_author_name`='$book_author_name',`book_publication_name`='$book_publication_name',`book_purchase_date`='$book_purchase_date',`book_price`='$book_price',`book_qty`='$book_qty',`available_qty`='$available_qty' WHERE `id` = '$id'");
+            if ($result) {
+            ?>
+                <script type="text/javascript">
+                    alert('Book updated successfully!');
+                </script>
+            <?php
+            } else {
+            ?>
+                <script type="text/javascript">
+                    alert('Book not updated');
+                </script>
+        <?php
+            }
+        }
         ?>
 
 

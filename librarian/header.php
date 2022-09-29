@@ -6,6 +6,7 @@ $page = end($page);
 // Database Connection
 require_once '../dbcon.php';
 
+// Session
 session_start();
 if (!isset($_SESSION['librarian_login'])) {
     header('location: login.php');
@@ -31,6 +32,7 @@ if (!isset($_SESSION['librarian_login'])) {
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="../assets/vendor/animate.css/animate.css">
+
     <!--SECTION css-->
     <!-- ========================================================= -->
     <!--Notification msj-->
@@ -167,7 +169,6 @@ if (!isset($_SESSION['librarian_login'])) {
         <!-- ========================================================= -->
         <div class="page-body">
             <!-- LEFT SIDEBAR -->
-            <!-- ========================================================= -->
             <div class="left-sidebar">
                 <!-- left sidebar HEADER -->
                 <div class="left-sidebar-header">
@@ -177,7 +178,6 @@ if (!isset($_SESSION['librarian_login'])) {
                     </div>
                 </div>
                 <!-- NAVIGATION -->
-                <!-- ========================================================= -->
                 <div id="left-nav" class="nano">
                     <div class="nano-content">
                         <nav>
@@ -198,6 +198,4 @@ if (!isset($_SESSION['librarian_login'])) {
                     </div>
                 </div>
             </div>
-            <!-- CONTENT -->
-            <!-- ========================================================= -->
             <div class="content">
